@@ -31,38 +31,111 @@ function runQuery($conn, $sql, $params = [], $types = "")
     <title>Result</title>
     <style>
         body {
-            display: block;
+            background-color: #fafafa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            color: #333;
             overflow-x: hidden;
         }
 
-        img {
-            position: relative;
-            left: 10px;
-            width: 200px;
-            height: 140px;
-            float: left;
-            border: 1px solid black;
+        h1 {
+            font-size: 2.5rem;
+            color: #d32f2f;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: capitalize;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #777;
+            text-align: center;
+            margin-top: 40px;
         }
 
         .product {
-            position: relative;
-            left: 20px;
+            background-color: white;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: box-shadow 0.3s ease;
         }
 
-        @media only screen and (max-width: 700px) {
+        .product:hover {
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.3);
+        }
+
+        .product img {
+            width: 250px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #d32f2f;
+            flex-shrink: 0;
+        }
+
+        .product h1 {
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            color: #d32f2f;
+        }
+
+        .product p {
+            margin: 0.2rem 0;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .product strong {
+            color: #d32f2f;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover h1 {
+            text-decoration: underline;
+            color: #9b1c1c;
+        }
+
+        hr {
+            max-width: 900px;
+            margin: 20px auto;
+            border: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        @media (max-width: 700px) {
+            .product {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px;
+            }
+
+            .product img {
+                width: 100%;
+                height: auto;
+                max-height: 220px;
+            }
+
             .product h1 {
-                font-size: 40px;
-                left: 0px;
-                padding-left: 25px;
+                font-size: 1.6rem;
+                margin-top: 15px;
+                text-align: center;
             }
 
             .product p {
-                font-size: 20px;
-            }
-
-            img {
-                width: 300px;
-                height: 200px;
+                font-size: 1rem;
+                text-align: center;
             }
         }
     </style>
@@ -86,18 +159,17 @@ function runQuery($conn, $sql, $params = [], $types = "")
             echo "<h1>You are searching for: " . safeOutput(ucwords($ser)) . "</h1><hr>";
             while ($row = $result->fetch_assoc()) {
     ?>
-                <br>
                 <div class='product'>
-                    <a style='text-decoration: none' href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
+                    <a href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
                         <img src="<?php echo safeOutput($row['image']); ?>" alt="<?php echo safeOutput($row['dname']); ?>">
-                        <h1>&ensp;<?php echo safeOutput($row['dname']); ?></h1>
                     </a>
-                    <p>
-                        <strong>&ensp;&ensp;&ensp;Description:</strong>
-                        <?php echo safeOutput(base64_decode($row['description'])); ?><br><br>
-                        &ensp;&ensp;&ensp;Uploaded by: <?php echo safeOutput($row['name']); ?>
-                    </p>
-                    <br>
+                    <div>
+                        <a href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
+                            <h1><?php echo safeOutput($row['dname']); ?></h1>
+                        </a>
+                        <p><strong>Description:</strong> <?php echo safeOutput(base64_decode($row['description'])); ?></p>
+                        <p>Uploaded by: <?php echo safeOutput($row['name']); ?></p>
+                    </div>
                 </div>
                 <hr>
             <?php
@@ -119,16 +191,16 @@ function runQuery($conn, $sql, $params = [], $types = "")
             while ($row = $result->fetch_assoc()) {
             ?>
                 <div class='product'>
-                    <a style='text-decoration: none' href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
+                    <a href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
                         <img src="<?php echo safeOutput($row['image']); ?>" alt="<?php echo safeOutput($row['dname']); ?>">
-                        <h1>&ensp;<?php echo safeOutput($row['dname']); ?></h1>
                     </a>
-                    <p>
-                        <strong>&ensp;&ensp;&ensp;Description:</strong>
-                        <?php echo safeOutput(base64_decode($row['description'])); ?><br><br>
-                        &ensp;&ensp;&ensp;Uploaded by: <?php echo safeOutput($row['name']); ?>
-                    </p>
-                    <br>
+                    <div>
+                        <a href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
+                            <h1><?php echo safeOutput($row['dname']); ?></h1>
+                        </a>
+                        <p><strong>Description:</strong> <?php echo safeOutput(base64_decode($row['description'])); ?></p>
+                        <p>Uploaded by: <?php echo safeOutput($row['name']); ?></p>
+                    </div>
                 </div>
                 <hr>
             <?php
@@ -149,17 +221,17 @@ function runQuery($conn, $sql, $params = [], $types = "")
             echo "<h1>" . safeOutput(ucwords($navval)) . "s</h1><hr>";
             while ($row = $result->fetch_assoc()) {
             ?>
-                <a style="text-decoration: none" href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
-                    <img src="<?php echo safeOutput($row['image']); ?>" alt="<?php echo safeOutput($row['dname']); ?>">
-                </a>
                 <div class='product'>
                     <a href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
-                        <h1><?php echo safeOutput($row['dname']); ?></h1>
+                        <img src="<?php echo safeOutput($row['image']); ?>" alt="<?php echo safeOutput($row['dname']); ?>">
                     </a>
-                    <p>
-                        <strong>Description:</strong>&ensp;<?php echo safeOutput(base64_decode($row['description'])); ?><br><br>
-                        Uploaded by: <?php echo safeOutput($row['name']); ?>
-                    </p>
+                    <div>
+                        <a href="<?php echo BASE_URL; ?>modules/video.php?p_id=<?php echo intval($row['id']); ?>">
+                            <h1><?php echo safeOutput($row['dname']); ?></h1>
+                        </a>
+                        <p><strong>Description:</strong> <?php echo safeOutput(base64_decode($row['description'])); ?></p>
+                        <p>Uploaded by: <?php echo safeOutput($row['name']); ?></p>
+                    </div>
                 </div>
                 <hr>
     <?php

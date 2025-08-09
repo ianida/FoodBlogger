@@ -6,9 +6,10 @@ include('../../assets/php/connection.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../assets/phpmailer/src/PHPMailer.php';
-require '../../assets/phpmailer/src/SMTP.php';
-require '../../assets/phpmailer/src/Exception.php';
+require '../phpmailer/PHPMailer.php';
+require '../phpmailer/SMTP.php';
+require '../phpmailer/Exception.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $em = trim($_POST['email']);
@@ -38,9 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->SMTPAuth = true;
             $mail->SMTPSecure = 'tls';
             $mail->Username = 'middlebreakfast03@gmail.com';  // SMTP email
-            $mail->Password = '';  // SMTP password or app password here (tyo google account ko)
+            $mail->Password = 'vgfwwbiycsjhdoyw';  // SMTP password or app password here (tyo google account ko)
 
-            $mail->setFrom('middlebreakfast03@gmail.com', 'Bhukkads');
+            $mail->setFrom('middlebreakfast03@gmail.com', 'Recipe Hub');
             $mail->addAddress($em);
             $mail->addReplyTo('middlebreakfast03@gmail.com');
 

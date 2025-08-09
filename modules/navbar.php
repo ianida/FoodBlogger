@@ -99,16 +99,20 @@ echo '<!-- BASE_URL: ' . BASE_URL . ' -->';
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo BASE_URL; ?>index.php">Home</a>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target" href="#">Cuisine<span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown_target">
-                        <a class="dropdown-item" href="<?php echo BASE_URL; ?>assets/php/search.php?cusinav=indian">Indian</a>
+                        <a class="dropdown-item" href="<?php echo BASE_URL; ?>assets/php/search.php?cusinav=nepali">Nepali</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?php echo BASE_URL; ?>assets/php/search.php?cusinav=italian">Italian</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?php echo BASE_URL; ?>assets/php/search.php?cusinav=chinese">Chinese</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?php echo BASE_URL; ?>assets/php/search.php?cusinav=indian">Indian</a>    
                     </div>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target" href="#">Course<span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown_target">
@@ -142,27 +146,31 @@ echo '<!-- BASE_URL: ' . BASE_URL . ' -->';
                         </div>
                     </div>
                 </form>
+                
                 <?php if (isset($_SESSION['fname'])) {
                     $user = new \stdClass();
                     $user->fname = $_SESSION['fname'];
                     $user->lname = $_SESSION['lname'];
                     $user->email = $_SESSION['emailid'];
                     $user->phone = $_SESSION['phone'];
-                    $ename = json_encode($user->fname);
-                    $ename = preg_replace('~"~', '', $ename);
+                    $ename = htmlspecialchars($user->fname);
                 ?>
-                    <li class="nav-item">
-                        <span class="navbar-text m-2" id="nam"><?php echo "Hello ", $ename ?></span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link m-2" href="<?php echo BASE_URL; ?>modules/logout.php">Logout</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle m-2" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, <?php echo $ename; ?>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/manage_profile.php">Manage Profile</a>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/manage_recipes.php">Manage Recipes</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/logout.php">Logout</a>
+                        </div>
                     </li>
                 <?php } else { ?>
                     <li class="nav-item"><a class="nav-link m-2" href="<?php echo BASE_URL; ?>modules/signup.php">Signup</a></li>
-                    <li class="nav-item m-2">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>modules/login.php">Login</a>
-                    </li>
+                    <li class="nav-item m-2"><a class="nav-link" href="<?php echo BASE_URL; ?>modules/login.php">Login</a></li>
                 <?php } ?>
+
             </ul>
         </div>
     </nav>

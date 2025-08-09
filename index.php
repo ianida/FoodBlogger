@@ -252,16 +252,16 @@ include('modules/navbar.php');
         </a>
     </div>
     <div class="headingbox">
-        <h1>Bhukkads</h1>
+        <h1>Recipe Hub</h1>
     </div>
     <div class="fullBackground"></div>
     <div class="indexbox" id="indexbox">
         <strong>
-            <p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Welcome to Bhukkads folks here you'll get all types of delicious food recipes which you will enjoy cooking and watching.So get ready for cooking and to bring smiles on people's faces.All the very best and keep cooking.</p>
+            <p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Welcome to Recipe Hub folks here you'll get all types of delicious food recipes which you will enjoy cooking and watching.So get ready for cooking and to bring smiles on people's faces.All the very best and keep cooking.</p>
             <br>
             <h1>About us</h1>
             <hr>
-            <p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;We provide a platform where people from different places connect together to share their recipies which can be useful for other peoples living in the other side of the globe.This can spread love and happiness within the globe and unite eveyone.Here you can upload a video with recipie attached to it so that the user finds it easy to look the video and recipe at the same time.Hope you enjoy cooking from <strong>Bhukkads</strong>.<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;You only need to login to upload and view recipes and enjoy as much as you can for free.Keep cooking and stay Bhukkad.</p>
+            <p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;We provide a platform where people from different places connect together to share their recipies which can be useful for other peoples living in the other side of the globe.This can spread love and happiness within the globe and unite eveyone.Here you can upload a video with recipie attached to it so that the user finds it easy to look the video and recipe at the same time.Hope you enjoy cooking from <strong>Recipe Hub</strong>.<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;You only need to login to upload and view recipes and enjoy as much as you can for free. Keep cooking and stay Recipe Hub.</p>
             <br>
             <!--<h1>Contact Us</h1>
             <hr>
@@ -277,7 +277,7 @@ include('modules/navbar.php');
         var text = "<details><Contact>" +
             "<where>Copyrights</where>" +
             "<what>©</what>" +
-            "<name>Bhukkads</name>" +
+            "<name>Recipe Hub</name>" +
             "</Contact></details>";
 
         parser = new DOMParser();

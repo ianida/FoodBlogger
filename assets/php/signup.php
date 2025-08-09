@@ -44,6 +44,8 @@ if (isset($_POST['submit'])) {
         $contact = trim($_POST['phone']);
         $dob = trim($_POST['dob']);
         $gender = trim($_POST['gender']);
+        $role = trim($_POST['role'] ?? 'user');  // default to user if not set
+        
 
         // Save inputs in session for reuse if needed
         $_SESSION['tfname'] = $fname;
@@ -52,6 +54,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['tphone'] = $contact;
         $_SESSION['tdob'] = $dob;
         $_SESSION['tgender'] = $gender;
+        $_SESSION['trole'] = $role;
 
         // Generate a random verification code
         $verification_code = rand(1000, 1000000);
@@ -82,7 +85,7 @@ if (isset($_POST['submit'])) {
             $mail->Username = 'middlebreakfast03@gmail.com';
             $mail->Password = 'vgfwwbiycsjhdoyw';
 
-            $mail->setFrom('middlebreakfast03@gmail.com', 'Bhukkads');
+            $mail->setFrom('middlebreakfast03@gmail.com', 'Recipe Hub');
             $mail->addAddress($email);
             $mail->addReplyTo('middlebreakfast03@gmail.com');
 

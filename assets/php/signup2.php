@@ -3,8 +3,8 @@ session_start();
 include('../../config.php');   
 include('../../assets/php/connection.php');  
 
-// Check required session data from signup steps
-if (!isset($_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['temailid'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'])) {
+// Check required session data from signup steps including role
+if (!isset($_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['temailid'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'], $_SESSION['trole'])) {
     echo "Session expired. Please <a href='" . BASE_URL . "modules/signup.php'>start signup again</a>.";
     exit;
 }
@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = $_SESSION['tphone'];
     $dob = $_SESSION['tdob'];
     $gender = $_SESSION['tgender'];
+    $role = $_SESSION['trole'];
     $pass = trim($_POST['pass'] ?? '');
 
     if (empty($pass)) {
@@ -23,12 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Hash password securely
-    //$hashedPass = password_hash($pass, PASSWORD_DEFAULT);
-    $hashedPass = $pass; // Save password as plain text
+    // Hash password securely (uncomment below if you want to hash)
+    // $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
+    $hashedPass = $pass; // currently storing plain text password (not secure)
 
-
-    // Check if email already exists - redundant if already checked earlier, but safe
+    // Check if email already exists (extra safety)
     $stmt = $conn->prepare("SELECT email FROM signup WHERE email = ? LIMIT 1");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -40,21 +40,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $stmt->close();
 
-    // Insert new user into signup table
-    $stmt = $conn->prepare("INSERT INTO signup (fname, lname, email, phone, dob, gender, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $fname, $lname, $email, $phone, $dob, $gender, $hashedPass);
+    // Insert new user including role column
+    $stmt = $conn->prepare("INSERT INTO signup (fname, lname, email, phone, dob, gender, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssss", $fname, $lname, $email, $phone, $dob, $gender, $hashedPass, $role);
 
     if ($stmt->execute()) {
         // Set logged-in session variables (optional)
         $_SESSION['fname'] = $fname;
         $_SESSION['lname'] = $lname;
-        $_SESSION['emailid'] = $email;  // use emailid for consistency
+        $_SESSION['emailid'] = $email;
         $_SESSION['phone'] = $phone;
         $_SESSION['dob'] = $dob;
         $_SESSION['gender'] = $gender;
+        $_SESSION['role'] = $role;
 
         // Clear temporary signup session data
-        unset($_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['temailid'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'], $_SESSION['random']);
+        unset($_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['temailid'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'], $_SESSION['trole'], $_SESSION['random']);
 
         // Redirect to home or login page
         header("Location: " . BASE_URL . "index.php");

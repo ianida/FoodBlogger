@@ -1,1 +1,2 @@
 http://localhost:8011/FoodBlogger/
+http://localhost:8011/FoodBlogger/index.php

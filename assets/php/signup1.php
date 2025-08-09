@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // OTP correct: Insert user data into database here
 
-        // Make sure user data exists in session from signup.php
-        if (!isset($_SESSION['temailid'], $_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'])) {
+        // Make sure user data exists in session from signup.php including role
+        if (!isset($_SESSION['temailid'], $_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'], $_SESSION['trole'])) {
             echo "<p>Session data missing. Please <a href='" . BASE_URL . "modules/signup.php'>start signup again</a>.</p>";
             exit;
         }
@@ -44,14 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $phone = $_SESSION['tphone'];
         $dob = $_SESSION['tdob'];
         $gender = $_SESSION['tgender'];
+        $role = $_SESSION['trole'];
 
-        // Prepare and insert user data
-        $stmt = $conn->prepare("INSERT INTO signup (fname, lname, email, phone, dob, gender) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $fname, $lname, $email, $phone, $dob, $gender);
+        // Prepare and insert user data with role
+        $stmt = $conn->prepare("INSERT INTO signup (fname, lname, email, phone, dob, gender, role) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $fname, $lname, $email, $phone, $dob, $gender, $role);
 
         if ($stmt->execute()) {
             // Clear session signup data
-            unset($_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['temailid'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'], $_SESSION['random']);
+            unset($_SESSION['tfname'], $_SESSION['tlname'], $_SESSION['temailid'], $_SESSION['tphone'], $_SESSION['tdob'], $_SESSION['tgender'], $_SESSION['trole'], $_SESSION['random']);
 
             // Redirect to success or login page
             header("Location: " . BASE_URL . "modules/login.php");

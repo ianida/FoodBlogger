@@ -3,7 +3,7 @@ session_start();
 include('../../config.php');  
 include('../../assets/php/connection.php'); 
 
-if (!isset($_SESSION['fname'])) {
+if (!isset($_SESSION['fname']) || !isset($_SESSION['id'])) {
     header('Location: ' . BASE_URL . 'modules/login.php');
     exit;
 }
@@ -52,10 +52,11 @@ if ($image_name && $image_temp) {
 }
 
 $name = $_SESSION['fname'] . " " . $_SESSION['lname'];
+$user_id = $_SESSION['id'];  // use user id from session
 
-// Insert into DB - Use prepared statement to prevent SQL injection
-$stmt = $conn->prepare("INSERT INTO videos (dname, cusine, course, videol, recepie, description, image, name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssssss", $dname, $cusine, $course, $videol, $recepie, $description, $imagel, $name);
+// Insert into DB with user_id included
+$stmt = $conn->prepare("INSERT INTO videos (dname, cusine, course, videol, recepie, description, image, name, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssssssi", $dname, $cusine, $course, $videol, $recepie, $description, $imagel, $name, $user_id);
 
 if ($stmt->execute()) {
     header("Location: " . BASE_URL . "index.php");

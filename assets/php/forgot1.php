@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $hashedPass = password_hash($password, PASSWORD_DEFAULT);
+    $hashedPass = $password;
 
     if (!$conn) {
         echo "Connection error: " . mysqli_connect_error();

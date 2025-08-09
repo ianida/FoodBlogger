@@ -28,6 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['gender'] = $user['gender'];
         $_SESSION['id'] = $user['id'];
 
+        // Store role in session
+        $_SESSION['role'] = $user['role'] ?? 'user';  // fallback 'user' if role column missing
+
         header("Location: " . BASE_URL . "index.php");
         exit;
     } else {

@@ -3,29 +3,133 @@ include_once('../config.php');
 session_start();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/login.css" type="text/css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
+    <style>
+        /* Full background setup */
+        .fullBackground {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        /* Login card styling */
+        .loginbox {
+            width: 460px;
+            max-height: 520px;
+            margin: 40px auto;
+            padding: 30px 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-y: auto; /* scroll inside card only */
+        }
+
+        .loginbox h1 {
+            text-align: center;
+            color: #f44336;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 28px;
+        }
+
+        .loginbox p {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+            margin-top: 12px;
+        }
+
+        .loginbox input[type="email"],
+        .loginbox input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .loginbox input[type="email"]:focus,
+        .loginbox input[type="password"]:focus {
+            border-color: #f44336;
+            outline: none;
+            box-shadow: 0 0 8px rgba(244, 67, 54, 0.5);
+        }
+
+        .loginbox input[type="submit"] {
+            width: 100%;
+            background-color: #d32f2f;
+            color: white;
+            padding: 12px 0;
+            font-weight: 700;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .loginbox input[type="submit"]:hover {
+            background-color: #b71c1c;
+        }
+
+        .loginbox a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #f44336;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .loginbox a:hover {
+            color: #b71c1c;
+            text-decoration: underline;
+        }
+
+        /* Remove page scroll */
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
     <?php include(__DIR__ . '/../modules/navbar.php'); ?>
-    
-    <section>
-        <div class="fullBackground"></div>
-        <div class="loginbox">
-            <h1>Login Here</h1>
-            <form onsubmit="return checkForm(this);" action="<?php echo BASE_URL; ?>assets/php/login.php" method="post">
-                <p>Email id:</p>
-                <input type="email" placeholder="Enter your email" name="email" required>
-                <p>Password:</p>
-                <input type="password" placeholder="Enter Password" name="password" id="pass" required><br><br>
-                <input type="submit" value="Login"><br>
-                <a href="<?php echo BASE_URL; ?>modules/forgot.php">Forgot Password</a><br>
-                <a href="<?php echo BASE_URL; ?>modules/signup.php">I'm new here</a>
-            </form>
-        </div>
-    </section>
+
+    <div class="fullBackground"></div>
+
+    <div class="loginbox">
+        <h1>Login Here</h1>
+        <form onsubmit="return checkForm(this);" action="<?php echo BASE_URL; ?>assets/php/login.php" method="post">
+            <p>Email id:</p>
+            <input type="email" placeholder="Enter your email" name="email" required>
+
+            <p>Password:</p>
+            <input type="password" placeholder="Enter Password" name="password" id="pass" required>
+
+            <input type="submit" value="Login">
+
+            <a href="<?php echo BASE_URL; ?>modules/forgot.php">Forgot Password?</a><br>
+            <a href="<?php echo BASE_URL; ?>modules/signup.php">I'm new here</a>
+        </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="<?php echo BASE_URL; ?>modules/src/fullclip.js"></script>
