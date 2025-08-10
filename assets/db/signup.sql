@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2018 at 03:39 PM
--- Server version: 5.7.21-log
--- PHP Version: 7.2.0
+-- Generation Time: Aug 10, 2025 at 06:14 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `foodblog`
+-- Database: `foodblogger`
 --
 
 -- --------------------------------------------------------
@@ -36,20 +35,18 @@ CREATE TABLE `signup` (
   `phone` bigint(20) NOT NULL,
   `dob` date NOT NULL,
   `gender` char(1) NOT NULL,
-  `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `password` varchar(100) NOT NULL,
+  `role` varchar(20) NOT NULL DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `signup`
 --
 
-INSERT INTO `signup` (`id`, `fname`, `lname`, `email`, `phone`, `dob`, `gender`, `password`) VALUES
-(2, 'Jaydeep', 'Dharamsey', 'jaydeepdharamsey21@gmail.com', 8080436593, '1998-04-21', 'm', 'asdf1234'),
-(3, 'Abhishek', 'Patel', 'abhishekrock171@gmail.com', 9769602025, '1998-11-04', 'm', 'abhi1234'),
-(4, 'Mihit', 'Chheda', 'rockingmihit@gmail.com', 9820902280, '1998-11-12', 'm', 'mihit1234'),
-(5, 'Nimeesh', 'Bagwe', 'bagwe.nimeesh4@gmail.com', 9869187670, '1999-04-06', 'm', 'nimya1234'),
-(6, 'Prasad', 'Awate', 'prasad.awate@sakec.ac.in', 8097651700, '1998-08-24', 'm', 'prasad1234'),
-(7, 'Swati', 'Gajbhiye', 'swati.gajbhiye@sakec.ac.in', 1234567890, '1998-04-21', 'f', 'swati1234');
+INSERT INTO `signup` (`id`, `fname`, `lname`, `email`, `phone`, `dob`, `gender`, `password`, `role`) VALUES
+(1, 'mkim', 'admin', 'mkim013@proton.me', 9841000001, '2003-02-02', 'm', 'ForMkim013', 'admin'),
+(11, 'siwawi', 'userOne', 'siwawi6900@bizmud.com', 9841000003, '2003-02-02', 'f', 'siwawi6900', 'user'),
+(12, 'rojar', 'maharjan', 'rojarmhj@proton.me', 9800000012, '2003-04-17', 'm', 'ForRojar1', 'user');
 
 --
 -- Indexes for dumped tables
@@ -69,7 +66,7 @@ ALTER TABLE `signup`
 -- AUTO_INCREMENT for table `signup`
 --
 ALTER TABLE `signup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
